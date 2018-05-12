@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.2</TargetFramework>
+    <AssemblyName>JNogueira.Infraestrutura.Utilzao.NetStandard12</AssemblyName>
+    <RootNamespace>JNogueira.Infraestrutura.Utilzao</RootNamespace>
+  </PropertyGroup>
+
+</Project>
