@@ -10,9 +10,25 @@ Precisando se comunicar? Tá na mão...!
 ### Slack
 Envie mensagens para o [Slack](https://slack.com/), de maneira simples! Informe sua [incoming webhook url](https://api.slack.com/incoming-webhooks), o canal desejado e foi...!
 
-Para realizar o envio das mensagens para o Slack, utilizo o *Slack.Webhooks* disponível em https://github.com/nerdfury/Slack.Webhooks.
+Para realizar o envio das mensagens para o Slack, utilizo o **Slack.Webhooks** disponível em https://github.com/nerdfury/Slack.Webhooks.
 
-### SMTP - enviando e-mails
+**SlackUtil** - Classe responsável por enviar mensagem para o incoming webhook do Slack.
+Informe os dados necessários para enviar as mensagens...
+```csharp
+private readonly string _urlWebhook = "https://hooks.slack.com/services/xyz";
+private readonly string _nomeCanal = "#nome-canal";
+private readonly string _nomeUsuario = "bot";
+```
+Enviando as mensagens...
+```csharp
+var slackUtil = new SlackUtil(_urlWebhook);
+var mensagem = new SlackMensagem(_nomeCanal, "Sorria, você recebeu uma mensagem!", _nomeUsuario, "Sorria!", TipoSlackEmoji.Smile);
+
+var enviou = slackUtil.Postar(mensagem);
+// enviou == true;
+```
+
+### SMTP
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
 ```csharp
 // Configuração do SmtpClient para utilização do G-mail
