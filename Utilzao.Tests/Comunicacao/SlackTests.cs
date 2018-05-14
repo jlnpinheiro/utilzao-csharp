@@ -11,9 +11,9 @@ namespace Utilzao.Tests
     {
         private readonly string _urlWebhook = "https://hooks.slack.com/services/xyz";
 
-        private readonly string _nomeCanal = "#seu-canal";
+        private readonly string _nomeCanal = "#nome-canal";
 
-        private readonly string _nomeUsuario = "bot";
+        private readonly string _nomeUsuario = "nome-usuario-bot";
 
         [TestMethod]
         public void Deve_Enviar_Mensagem_Para_Slack()
@@ -30,9 +30,13 @@ namespace Utilzao.Tests
         {
             var slackUtil = new SlackUtil(_urlWebhook);
 
-            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
+            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack com informações adicionais.", _nomeUsuario, "Você recebeu uma mensagem.", TipoSlackEmoji.RobotFace);
 
-            Assert.IsTrue(slackUtil.Postar(mensagem, infoAdicionais: new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("Data atual", DateTime.Now.ToString("dd/MM/yyyy")) }));
+            Assert.IsTrue(slackUtil.Postar(mensagem, infoAdicionais: new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("Data atual", DateTime.Now.ToString("dd/MM/yyyy")),
+                new KeyValuePair<string, string>("Outra informação", "Qualquer informação aqui.")
+            }));
         }
 
         [TestMethod]
@@ -40,7 +44,7 @@ namespace Utilzao.Tests
         {
             var slackUtil = new SlackUtil(_urlWebhook);
 
-            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem de aviso enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
+            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
 
             mensagem.DefinirTipo(TipoSlackMensagem.Aviso);
 
@@ -52,7 +56,7 @@ namespace Utilzao.Tests
         {
             var slackUtil = new SlackUtil(_urlWebhook);
 
-            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem de info enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
+            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
 
             mensagem.DefinirTipo(TipoSlackMensagem.Info);
 
@@ -64,7 +68,7 @@ namespace Utilzao.Tests
         {
             var slackUtil = new SlackUtil(_urlWebhook);
 
-            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem de info enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
+            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
 
             mensagem.DefinirTipo(TipoSlackMensagem.Erro);
 
@@ -83,9 +87,7 @@ namespace Utilzao.Tests
             }
             catch (Exception ex)
             {
-                var mensagem = new SlackMensagem(_nomeCanal, "Esse é um erro enviado pelo Slack.", _nomeUsuario, "Você recebeu uma mensagem com erro");
-
-                mensagem.DefinirTipo(TipoSlackMensagem.Erro);
+                var mensagem = new SlackMensagem(_nomeCanal, "Esse é um exemplo de exception enviada para o Slack.", _nomeUsuario, "Você recebeu uma nova exception");
 
                 Assert.IsTrue(slackUtil.Postar(mensagem, ex));
             }
