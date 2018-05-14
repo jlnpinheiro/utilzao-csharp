@@ -40,7 +40,7 @@ namespace JNogueira.Infraestrutura.Utilzao
         {
             if (string.IsNullOrEmpty(input)) return input;
 
-            input = input.RemoverCaracter(input, ".", ",", "-", "/", "(", ")").Trim();
+            input = input.ExtrairNumeros().Trim();
 
             return input.Length < 11 ? input : Formatar(input, "###.###.###-##");
         }
@@ -53,7 +53,7 @@ namespace JNogueira.Infraestrutura.Utilzao
         {
             if (string.IsNullOrEmpty(input)) return input;
 
-            input = input.RemoverCaracter(input, ".", ",", "-", "/", "(", ")").Trim();
+            input = input.ExtrairNumeros().Trim();
 
             return input.Length < 14 ? input : Formatar(input, "##.###.###/####-##");
         }
@@ -66,7 +66,7 @@ namespace JNogueira.Infraestrutura.Utilzao
         {
             if (string.IsNullOrEmpty(input)) return input;
 
-            input = input.RemoverCaracter(input, ".", ",", "-", "/", "(", ")").Trim();
+            input = input.ExtrairNumeros().Trim();
 
             return input.Length < 14 ? FormatarCpf(input) : FormatarCnpj(input);
         }
@@ -99,15 +99,6 @@ namespace JNogueira.Infraestrutura.Utilzao
             return (string.IsNullOrEmpty(input))
                 ? input
                 : new string(input.Where(char.IsDigit).ToArray());
-        }
-
-        /// <summary>
-        /// Retorna uma string
-        /// </summary>
-        /// <param name="input">Número retornado como string</param>
-        public static string ToString(this double? input)
-        {
-            return input?.ToString();
         }
     }
 }

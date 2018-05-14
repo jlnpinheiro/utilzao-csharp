@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.2</TargetFramework>
-    <AssemblyName>JNogueira.Infraestrutura.Utilzao.NetStandard12</AssemblyName>
+    <AssemblyName>JNogueira.Infraestrutura.Utilzao.Standard</AssemblyName>
     <RootNamespace>JNogueira.Infraestrutura.Utilzao</RootNamespace>
   </PropertyGroup>
 
