@@ -97,6 +97,7 @@ Precisando se comunicar? Tá na mão...!
 ### SMTP - enviando e-mails
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
 ```csharp
+// Configuração do SmtpClient para utilização do G-mail
 var smtpGmail = new SmtpClient
 {
     Host                  = "smtp.gmail.com",
@@ -107,6 +108,7 @@ var smtpGmail = new SmtpClient
     Credentials           = new NetworkCredential("seu_email@gmail.com", "sua_senha")
 };
 
+// Informando um anexo
 var anexo = new Attachment("c:\\meu_anexo.pdf");
 
 var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, "<b>Você recebeu uma mensagem.</b>", smtpGmail)
@@ -118,8 +120,10 @@ var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destina
     MensagemEmHtml = true
 };
 
+// Enviando a mensagem
 email.Enviar();
 ```
+Configuração do SMTP existente em um arquivo de configuração (Web.Config ou App.Config)
 ```xml
 <configuration>
   <system.net>
