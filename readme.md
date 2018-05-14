@@ -4,6 +4,12 @@ Coleção de classes e métodos úteis em C# para manipulação de strings, data
 
 A ideia desse projeto é agrupar várias soluções e recursos "úteis" utilizados durante o desenvolvimento. Coisas simples como aplicar uma máscara a um string, validar um CPF, remover caracteres de uma string, etc. O objetivo é fazer um componente "utilzão" agrupando todos esses recursos em uma coisa só!
 
+A solução do projeto é dividida nos seguintes projetos:
+
+* **Utilzao.Standard**: Projeto utilizando .NET Standard 1.2. Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
+* **Utilzao**: Projeto utilizando .NET Full Framework 4.5.1
+* **Utilzao.Tests**: Projeto de testes.
+
 ## Comunicação
 Precisando se comunicar? Tá na mão...!
 
@@ -75,7 +81,7 @@ var enviou = slackUtil.Postar(mensagem);
 ```
 ![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-erro.png)
 
-Enviando mensagens quando exception acontece...
+Enviando mensagens quando uma exception acontece...
 ```csharp
 try
 {
