@@ -35,11 +35,59 @@ var data = "13/05/2018".ConverterDataPorFormato("dd/MM/yyyy HH:mm:ss");
 ### Formatações
 **Formatar** - Formata uma string a partir de um padrão.
 ```csharp
-var aux = "123456789".Formatar("###.###-###")
+var aux = "123456789".Formatar("###.###-###");
 // aux == 123.456-789
 ```
 **FormatarCpf** - Formata uma string aplicando a máscara para CPF.
 ```csharp
-var aux = "42580284010".FormatarCpf()
+var aux = "42580284010".FormatarCpf();
 // aux == "425.802.840-10"
+```
+**FormatarCnpj** - Formata uma string aplicando a máscara para CNPJ.
+```csharp
+var aux = "84552945000106".FormatarCnpj();
+// aux == "84.552.945/0001-06"
+```
+**RemoverCaracter** - Remove de uma string alguns caracteres desejados.
+```csharp
+var aux = "84.552.945/0001-06".RemoverCaracter(".", "/", "-");
+// aux == "84552945000106"
+```
+**ExtrairNumeros** - Extrai somente os caracteres numéricos de uma string.
+```csharp
+var aux = "84.552.945/0001-06".ExtrairNumeros();
+// aux == "84552945000106"
+```
+**RemoverAcentuacao** - Remove todos os caracteres acentuados de uma string.
+```csharp
+var aux = "Ãóçê".RemoverAcentuacao();
+// aux == "Aoce
+```
+
+### Validações
+**ValidarCnpj** - Valida se uma determinada string é o número válido de um CNPJ.
+```csharp
+var aux = "84.552.945/0001-06".ValidarCnpj();
+// aux == true
+var aux = "123".ValidarCnpj();
+// aux == false
+```
+**ValidarCpf** - Valida se uma determinada string é o número válido de um CPF.
+```csharp
+var aux = "425.802.840-10".ValidarCpf();
+// aux == true
+var aux = "123".ValidarCpf();
+// aux == false
+```
+
+### Critptografia
+**Criptografar** - Criptografa uma string.
+```csharp
+var chave = "Essa é a minha chave secreta".Criptografar();
+// chave == "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI="
+```
+**Descriptografar** - Descriptografa uma string.
+```csharp
+var chave = "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI=".Descriptografar();
+// chave == "Essa é a minha chave secreta"
 ```
