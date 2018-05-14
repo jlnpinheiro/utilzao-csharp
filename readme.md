@@ -27,6 +27,7 @@ var mensagem = new SlackMensagem(_nomeCanal, "Sorria, você recebeu uma mensagem
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-1.png)
 
 ### SMTP
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
