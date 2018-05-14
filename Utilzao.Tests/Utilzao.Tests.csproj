@@ -58,8 +58,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Utilzao.NetStandard12\Utilzao.Standard.csproj">
-      <Project>{ac126018-a811-48b1-99ab-ad4651bea6ca}</Project>
+    <ProjectReference Include="..\Utilzao.Standard\Utilzao.Standard.csproj">
+      <Project>{59a9a7b6-38ec-4227-bbc6-571b706eab6f}</Project>
       <Name>Utilzao.Standard</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilzao\Utilzao.csproj">

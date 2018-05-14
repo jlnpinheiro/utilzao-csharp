@@ -57,12 +57,6 @@
     <Compile Include="Comunicacao\Slack\SlackUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Utilzao.NetStandard12\Utilzao.Standard.csproj">
-      <Project>{ac126018-a811-48b1-99ab-ad4651bea6ca}</Project>
-      <Name>Utilzao.Standard</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
