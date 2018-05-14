@@ -49,8 +49,9 @@ Enviando mensagens por tipo...
 **Aviso**
 ```csharp
 var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack.", _nomeUsuario, "Você recebeu uma mensagem.");
-//TipoSlackMensagem.Aviso
+
 mensagem.DefinirTipo(TipoSlackMensagem.Aviso);
+
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
@@ -58,21 +59,37 @@ var enviou = slackUtil.Postar(mensagem);
 
 **Info**
 ```csharp
-//TipoSlackMensagem.Info
 mensagem.DefinirTipo(TipoSlackMensagem.Info);
+
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
 ![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-info.png)
 
-**Info**
+**Erro**
 ```csharp
-//TipoSlackMensagem.Erro
 mensagem.DefinirTipo(TipoSlackMensagem.Erro);
+
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
 ![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-erro.png)
+
+Enviando mensagens quando exception acontece...
+```csharp
+try
+{
+    var a = 0;
+    var i = 5 / a;
+}
+catch (Exception ex)
+{
+    var mensagem = new SlackMensagem(_nomeCanal, "Esse é um exemplo de exception enviada para o Slack.", _nomeUsuario, "Você recebeu uma nova exception");
+    var enviou = slackUtil.Postar(mensagem, ex);
+    // enviou == true;
+}
+```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-exception.png)
 
 ### SMTP
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
