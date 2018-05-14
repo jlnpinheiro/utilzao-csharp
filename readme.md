@@ -130,7 +130,8 @@ email.Enviar();
     </mailSettings>
   </system.net>
 </configuration>
-
+```
+```csharp
 var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, " <b>Você recebeu uma mensagem.</b>")
 {
     NomeRemetente = "Utilzão",
