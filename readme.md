@@ -28,6 +28,7 @@ var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
 ![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-1.png)
+
 Enviando mensagens com informações adicionais...
 ```csharp
 var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack com informações adicionais.", _nomeUsuario, "Você recebeu uma mensagem.", TipoSlackEmoji.RobotFace);
