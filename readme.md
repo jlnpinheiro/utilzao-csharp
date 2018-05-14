@@ -4,6 +4,61 @@ Coleção de classes e métodos úteis em C# para manipulação de strings, data
 
 A ideia desse projeto é agrupar várias soluções e recursos "úteis" utilizados durante o desenvolvimento. Coisas simples como aplicar uma máscara a um string, validar um CPF, remover caracteres de uma string, etc. O objetivo é fazer um componente "utilzão" agrupando todos esses recursos em uma coisa só!
 
+## Comunicação
+Precisando se comunicar? Tá na mão...!
+
+### SMTP - enviando e-mails
+**SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
+```csharp
+// Configuração do SmtpClient para utilização do G-mail
+var smtpGmail = new SmtpClient
+{
+    Host                  = "smtp.gmail.com",
+    Port                  = 587,
+    EnableSsl             = true,
+    DeliveryMethod        = SmtpDeliveryMethod.Network,
+    UseDefaultCredentials = true,
+    Credentials           = new NetworkCredential("seu_email@gmail.com", "sua_senha")
+};
+
+// Informando um anexo
+var anexo = new Attachment("c:\\meu_anexo.pdf");
+
+var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, "<b>Você recebeu uma mensagem.</b>", smtpGmail)
+{
+    Anexos = new List<Attachment> { anexo },
+    EmailsDestinatariosEmCopia = new[] { "email_destinatario_2@seudominio.com", "email_destinatario_3@seudominio.com" },
+    NomeRemetente = "Utilzão",
+    Assunto = "Você recebeu um e-mail.",
+    MensagemEmHtml = true
+};
+
+// Enviando a mensagem
+email.Enviar();
+```
+Configuração do SMTP existente em um arquivo de configuração (Web.Config ou App.Config)
+```xml
+<configuration>
+  <system.net>
+    <mailSettings>
+      <smtp from="seu_email@seudominio.com.br">
+        <network host="smtp.seudominio.com.br" port="587" password="sua_senha" userName="username@seudominio.com.br" defaultCredentials="false" />
+      </smtp>
+    </mailSettings>
+  </system.net>
+</configuration>
+```
+```csharp
+var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, " <b>Você recebeu uma mensagem.</b>")
+{
+    NomeRemetente = "Utilzão",
+    Assunto = "Você recebeu um e-mail com anexo.",
+    MensagemEmHtml = true
+};
+
+email.Enviar();
+```
+
 ## Extension methods
 Gosto muito [extension methods](https://docs.microsoft.com/pt-br/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), por isso criei uma pequena coleção desses métodos que utilizo com frequência:
 
@@ -90,58 +145,4 @@ var chave = "Essa é a minha chave secreta".Criptografar();
 ```csharp
 var chave = "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI=".Descriptografar();
 // chave == "Essa é a minha chave secreta"
-```
-## Comunicação
-Precisando se comunicar? Tá na mão...!
-
-### SMTP - enviando e-mails
-**SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
-```csharp
-// Configuração do SmtpClient para utilização do G-mail
-var smtpGmail = new SmtpClient
-{
-    Host                  = "smtp.gmail.com",
-    Port                  = 587,
-    EnableSsl             = true,
-    DeliveryMethod        = SmtpDeliveryMethod.Network,
-    UseDefaultCredentials = true,
-    Credentials           = new NetworkCredential("seu_email@gmail.com", "sua_senha")
-};
-
-// Informando um anexo
-var anexo = new Attachment("c:\\meu_anexo.pdf");
-
-var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, "<b>Você recebeu uma mensagem.</b>", smtpGmail)
-{
-    Anexos = new List<Attachment> { anexo },
-    EmailsDestinatariosEmCopia = new[] { "email_destinatario_2@seudominio.com", "email_destinatario_3@seudominio.com" },
-    NomeRemetente = "Utilzão",
-    Assunto = "Você recebeu um e-mail.",
-    MensagemEmHtml = true
-};
-
-// Enviando a mensagem
-email.Enviar();
-```
-Configuração do SMTP existente em um arquivo de configuração (Web.Config ou App.Config)
-```xml
-<configuration>
-  <system.net>
-    <mailSettings>
-      <smtp from="seu_email@seudominio.com.br">
-        <network host="smtp.seudominio.com.br" port="587" password="sua_senha" userName="username@seudominio.com.br" defaultCredentials="false" />
-      </smtp>
-    </mailSettings>
-  </system.net>
-</configuration>
-```
-```csharp
-var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, " <b>Você recebeu uma mensagem.</b>")
-{
-    NomeRemetente = "Utilzão",
-    Assunto = "Você recebeu um e-mail com anexo.",
-    MensagemEmHtml = true
-};
-
-email.Enviar();
 ```
