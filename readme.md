@@ -236,3 +236,26 @@ var chave = "Essa é a minha chave secreta".Criptografar();
 var chave = "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI=".Descriptografar();
 // chave == "Essa é a minha chave secreta"
 ```
+
+## Dependências
+**Utilzao** - .NET Full 4.5.1
+**Utilzao.Standard** - .NET Standard 1.2+
+
+Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
+
+## Instalação
+
+### NuGet
+```
+Install-Package Utilzao
+```
+```
+Install-Package Utilzao.Standard
+```
+### .NET CLI
+```
+dotnet add package Utilzao
+```
+```
+dotnet add package Utilzao.Standard
+```
