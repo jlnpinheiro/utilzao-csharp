@@ -120,8 +120,8 @@ var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destina
 
 email.Enviar();
 ```
-```csharp
-/*<configuration>
+```xml
+<configuration>
   <system.net>
     <mailSettings>
       <smtp from="seu_email@seudominio.com.br">
@@ -129,7 +129,7 @@ email.Enviar();
       </smtp>
     </mailSettings>
   </system.net>
-</configuration>*/
+</configuration>
 
 var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, " <b>Você recebeu uma mensagem.</b>")
 {
