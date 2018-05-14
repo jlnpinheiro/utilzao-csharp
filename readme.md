@@ -29,6 +29,8 @@ var enviou = slackUtil.Postar(mensagem);
 ```
 ![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-1.png)
 
+As mensagens são enviadas utilizando os *"attachments*" do Slack. Para maiores informações acesse https://api.slack.com/docs/message-attachments.
+
 Enviando mensagens com informações adicionais...
 ```csharp
 var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack com informações adicionais.", _nomeUsuario, "Você recebeu uma mensagem.", TipoSlackEmoji.RobotFace);
@@ -40,6 +42,8 @@ var enviou = slackUtil.Postar(mensagem, infoAdicionais: new List<KeyValuePair<st
 });
 // enviou == true;
 ```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-2.png)
+
 
 ### SMTP
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
