@@ -7,6 +7,11 @@ A ideia desse projeto é agrupar várias soluções e recursos "úteis" utilizad
 ## Comunicação
 Precisando se comunicar? Tá na mão...!
 
+### Slack
+Envie mensagens para o [Slack](https://slack.com/), de maneira simples! Informe sua [incoming webhook url](https://api.slack.com/incoming-webhooks), o canal desejado e foi...!
+
+Para realizar o envio das mensagens para o Slack, utilizo o *Slack.Webhooks* disponível em https://github.com/nerdfury/Slack.Webhooks.
+
 ### SMTP - enviando e-mails
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
 ```csharp
