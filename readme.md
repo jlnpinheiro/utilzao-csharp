@@ -31,3 +31,15 @@ var data = "13/05/2018 23:12:55".ConverterDataPorFormato("dd/MM/yyyy HH:mm:ss");
 var data = "13/05/2018".ConverterDataPorFormato("dd/MM/yyyy HH:mm:ss");
 // data == null, pois a string "13/05/2018" não possui o formato "dd/MM/yyyy HH:mm:ss".
 ```
+
+### Formatações
+**Formatar** - Formata uma string a partir de um padrão.
+```csharp
+var aux = "123456789".Formatar("###.###-###")
+// aux == 123.456-789
+```
+**FormatarCpf** - Formata uma string aplicando a máscara para CPF.
+```csharp
+var aux = "42580284010".FormatarCpf()
+// aux == "425.802.840-10"
+```
