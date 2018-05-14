@@ -27,6 +27,52 @@ var mensagem = new SlackMensagem(_nomeCanal, "Sorria, você recebeu uma mensagem
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-1.png)
+
+As mensagens são enviadas utilizando os *"attachments*" do Slack. Para maiores informações acesse https://api.slack.com/docs/message-attachments.
+
+Enviando mensagens com informações adicionais...
+```csharp
+var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack com informações adicionais.", _nomeUsuario, "Você recebeu uma mensagem.", TipoSlackEmoji.RobotFace);
+
+var enviou = slackUtil.Postar(mensagem, infoAdicionais: new List<KeyValuePair<string, string>>
+{
+    new KeyValuePair<string, string>("Data atual", DateTime.Now.ToString("dd/MM/yyyy")),
+    new KeyValuePair<string, string>("Outra informação", "Qualquer informação aqui.")
+});
+// enviou == true;
+```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-2.png)
+
+Enviando mensagens por tipo...
+
+**Aviso**
+```csharp
+var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack.", _nomeUsuario, "Você recebeu uma mensagem.");
+//TipoSlackMensagem.Aviso
+mensagem.DefinirTipo(TipoSlackMensagem.Aviso);
+var enviou = slackUtil.Postar(mensagem);
+// enviou == true;
+```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-aviso.png)
+
+**Info**
+```csharp
+//TipoSlackMensagem.Info
+mensagem.DefinirTipo(TipoSlackMensagem.Info);
+var enviou = slackUtil.Postar(mensagem);
+// enviou == true;
+```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-info.png)
+
+**Info**
+```csharp
+//TipoSlackMensagem.Erro
+mensagem.DefinirTipo(TipoSlackMensagem.Erro);
+var enviou = slackUtil.Postar(mensagem);
+// enviou == true;
+```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-erro.png)
 
 ### SMTP
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
