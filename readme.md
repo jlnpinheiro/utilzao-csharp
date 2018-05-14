@@ -4,6 +4,12 @@ Coleção de classes e métodos úteis em C# para manipulação de strings, data
 
 A ideia desse projeto é agrupar várias soluções e recursos "úteis" utilizados durante o desenvolvimento. Coisas simples como aplicar uma máscara a um string, validar um CPF, remover caracteres de uma string, etc. O objetivo é fazer um componente "utilzão" agrupando todos esses recursos em uma coisa só!
 
+A solução é dividida nos seguintes projetos:
+
+* **Utilzao.Standard**: Projeto utilizando .NET Standard 1.2. Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
+* **Utilzao**: Projeto utilizando .NET Full Framework 4.5.1
+* **Utilzao.Tests**: Projeto de testes.
+
 ## Comunicação
 Precisando se comunicar? Tá na mão...!
 
@@ -49,8 +55,9 @@ Enviando mensagens por tipo...
 **Aviso**
 ```csharp
 var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack.", _nomeUsuario, "Você recebeu uma mensagem.");
-//TipoSlackMensagem.Aviso
+
 mensagem.DefinirTipo(TipoSlackMensagem.Aviso);
+
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
@@ -58,21 +65,37 @@ var enviou = slackUtil.Postar(mensagem);
 
 **Info**
 ```csharp
-//TipoSlackMensagem.Info
 mensagem.DefinirTipo(TipoSlackMensagem.Info);
+
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
 ![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-info.png)
 
-**Info**
+**Erro**
 ```csharp
-//TipoSlackMensagem.Erro
 mensagem.DefinirTipo(TipoSlackMensagem.Erro);
+
 var enviou = slackUtil.Postar(mensagem);
 // enviou == true;
 ```
 ![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-erro.png)
+
+Enviando mensagens quando uma exception acontece...
+```csharp
+try
+{
+    var a = 0;
+    var i = 5 / a;
+}
+catch (Exception ex)
+{
+    var mensagem = new SlackMensagem(_nomeCanal, "Esse é um exemplo de exception enviada para o Slack.", _nomeUsuario, "Você recebeu uma nova exception");
+    var enviou = slackUtil.Postar(mensagem, ex);
+    // enviou == true;
+}
+```
+![Exemplo de mensagem](https://github.com/jlnpinheiro/utilzao-csharp/blob/master/_media/mensagem-slack-exception.png)
 
 ### SMTP
 **SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
@@ -212,4 +235,27 @@ var chave = "Essa é a minha chave secreta".Criptografar();
 ```csharp
 var chave = "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI=".Descriptografar();
 // chave == "Essa é a minha chave secreta"
+```
+
+## Dependências
+* **Utilzao**: .NET Full 4.5.1
+* **Utilzao.Standard**: .NET Standard 1.2+
+
+Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
+
+## Instalação
+
+### NuGet
+```
+Install-Package Utilzao
+```
+```
+Install-Package Utilzao.Standard
+```
+### .NET CLI
+```
+dotnet add package Utilzao
+```
+```
+dotnet add package Utilzao.Standard
 ```
