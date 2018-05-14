@@ -120,3 +120,23 @@ var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destina
 
 email.Enviar();
 ```
+```csharp
+/*<configuration>
+  <system.net>
+    <mailSettings>
+      <smtp from="seu_email@seudominio.com.br">
+        <network host="smtp.seudominio.com.br" port="587" password="sua_senha" userName="username@seudominio.com.br" defaultCredentials="false" />
+      </smtp>
+    </mailSettings>
+  </system.net>
+</configuration>*/
+
+var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, " <b>Você recebeu uma mensagem.</b>")
+{
+    NomeRemetente = "Utilzão",
+    Assunto = "Você recebeu um e-mail com anexo.",
+    MensagemEmHtml = true
+};
+
+email.Enviar();
+```
