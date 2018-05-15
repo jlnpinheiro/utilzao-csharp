@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.2</TargetFramework>
-    <AssemblyName>JNogueira.Infraestrutura.Utilzao.Standard</AssemblyName>
+    <AssemblyName>Utilzao.Standard</AssemblyName>
     <RootNamespace>JNogueira.Infraestrutura.Utilzao</RootNamespace>
     <PackageId>Utilzao.Standard</PackageId>
     <Authors>Jorge Nogueira</Authors>
@@ -11,8 +11,8 @@
     <PackageProjectUrl>https://github.com/jlnpinheiro/utilzao-csharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jlnpinheiro/utilzao-csharp</RepositoryUrl>
     <PackageTags>cpf, cnpj, conversão, extension methods, validação, máscara, formatação, slack, smtp</PackageTags>
-    <Version>1.0.1.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Version>1.0.2.0</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
