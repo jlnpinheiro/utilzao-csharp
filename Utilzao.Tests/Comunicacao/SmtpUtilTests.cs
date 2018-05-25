@@ -40,10 +40,10 @@ namespace Utilzao.Tests
         {
             try
             {
-                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste.</b>", _smtp)
+                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "Você recebeu uma mensagem enviada pelo teste <b>Deve_Enviar_Email_Por_Smtp</b>.", _smtp)
                 {
                     NomeRemetente  = "Utilzão Teste",
-                    Assunto        = "Você recebeu um e-mail teste.",
+                    Assunto        = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp",
                     MensagemEmHtml = true
                 };
 
@@ -53,7 +53,7 @@ namespace Utilzao.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail(ex.Message);
+                Assert.Fail(ex.GetBaseException().Message);
             }
         }
 
@@ -62,11 +62,11 @@ namespace Utilzao.Tests
         {
             try
             {
-                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste.</b>", _smtp)
+                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "Você recebeu uma mensagem enviada pelo teste <b>Deve_Enviar_Email_Por_Smtp_Com_Copia</b>.", _smtp)
                 {
                     EmailsDestinatariosEmCopia = _emailDestinatarios,
                     NomeRemetente = "Utilzão Teste",
-                    Assunto = "Você recebeu um e-mail teste.",
+                    Assunto = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp_Com_Copia",
                     MensagemEmHtml = true
                 };
 
@@ -76,7 +76,7 @@ namespace Utilzao.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail(ex.Message);
+                Assert.Fail(ex.GetBaseException().Message);
             }
         }
 
@@ -103,7 +103,7 @@ namespace Utilzao.Tests
                 {
                     Anexos = new List<Attachment> { anexo },
                     NomeRemetente = "Utilzão Teste",
-                    Assunto = "Você recebeu um e-mail teste com anexo.",
+                    Assunto = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp_Com_Anexo",
                     MensagemEmHtml = true
                 };
 
@@ -113,7 +113,7 @@ namespace Utilzao.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail(ex.Message);
+                Assert.Fail(ex.GetBaseException().Message);
             }
         }
     }
