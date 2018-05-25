@@ -30,7 +30,7 @@ test:
     assemblies:
       - '**\*Utilzao.Tests.dll'
 artifacts:
-  - path: '**\Utilzao.*.nupkg'
+  - path: '**\Utilzao.1.*.nupkg'
     name: UtilzaoNuGet
 deploy:
   # NuGet
