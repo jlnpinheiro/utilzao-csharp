@@ -34,6 +34,9 @@ artifacts:
 deploy:
   # GitHub
   - provider: GitHub
+    release: $(APPVEYOR_REPO_TAG_NAME)
+    description: $(APPVEYOR_REPO_TAG_NAME)
+    provider: GitHub
     auth_token:
       secure: S8J30uBVO6nnJrL7MZ4EfUk0wX7mwlhLpXamPGijyaC6adefhnGAKuZzABknfkqb # Token do GitHub encriptada em https://ci.appveyor.com/tools/encrypt
     draft: false
