@@ -2,7 +2,7 @@ version: '1.0.{build}'
 image: Visual Studio 2017
 environment:
   my_secret:
-    secure: oB6h1YHPdFxVwg7++llRwg==
+    secure: oB6h1YHPdFxVwg7++llRwg== # Encriptada em https://ci.appveyor.com/tools/encrypt
 branches:
   only:
   - master
@@ -33,10 +33,23 @@ artifacts:
   - path: '**\Utilzao.*.nupkg'
     name: UtilzaoNuGet
 deploy:
+  # GitHub
+  - provider: GitHub
+    tag: v$(appveyor_build_version)
+    release: v$(appveyor_build_version)
+    description: 'Release publicada pela integração com o AppVeyor.'
+    auth_token:
+      secure: S8J30uBVO6nnJrL7MZ4EfUk0wX7mwlhLpXamPGijyaC6adefhnGAKuZzABknfkqb # Token do GitHub encriptada em https://ci.appveyor.com/tools/encrypt
+    draft: false
+    prerelease: false
+    artifact:
+    on:
+      branch: master                
+      appveyor_repo_tag: false
   # NuGet
   - provider: NuGet
     api_key:
-      secure: ty/C9+zIqbXaj8BRG+aiDTMHgfdz9NMXjEVaOuQ/SjwHzhEjJpf+3QHKRwPTSceX # your encrypted token from Nuget
+      secure: ty/C9+zIqbXaj8BRG+aiDTMHgfdz9NMXjEVaOuQ/SjwHzhEjJpf+3QHKRwPTSceX # Appkey do Nuget encriptada em https://ci.appveyor.com/tools/encrypt
     skip_symbols: false
     artifact: UtilzaoNuGet
 on_success:
