@@ -92,12 +92,11 @@ namespace Utilzao.Tests
                     using (System.IO.StreamWriter writer = new System.IO.StreamWriter(ms))
                     {
                         writer.Write("Olá, sou um anexo!");
-                        writer.Flush();
 
                         anexo = new Attachment(ms, new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Text.Plain));
                         anexo.ContentDisposition.FileName = "AnexoEmail.txt";
 
-                        var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste com anexo.</b>", _smtp)
+                        var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "Você recebeu uma mensagem teste com anexo.", _smtp)
                         {
                             Anexos = new List<Attachment> { anexo },
                             NomeRemetente = "Utilzão Teste",
