@@ -6,7 +6,7 @@ environment:
 branches:
   only:
   - master
-skip_tags: true
+skip_non_tags: true
 configuration: Release  
 assembly_info:
   patch: true
@@ -29,31 +29,15 @@ build_script:
 test:
     assemblies:
       - '**\*Utilzao.Tests.dll'
-#    categories:
-#      - Extension methods - Int
-#      - Extension methods - String
 artifacts:
   - path: '**\Utilzao.*.nupkg'
     name: UtilzaoNuGet
 deploy:
-  # GitHub
-  - provider: GitHub
-    tag: v$(appveyor_build_version)
-    release: v$(appveyor_build_version)
-    description: 'Release publicada pela integração com o AppVeyor'
-    auth_token:
-      secure: S8J30uBVO6nnJrL7MZ4EfUk0wX7mwlhLpXamPGijyaC6adefhnGAKuZzABknfkqb # your encrypted token from GitHub
-    draft: false
-    prerelease: false
-    on:
-      branch: master                
-      appveyor_repo_tag: false
-
-# NuGet
-#- provider: NuGet
-#  api_key:
-#    secure: ty/C9+zIqbXaj8BRG+aiDTMHgfdz9NMXjEVaOuQ/SjwHzhEjJpf+3QHKRwPTSceX # your encrypted token from Nuget
-#  skip_symbols: false
-#  artifact: NotifiqueMeNuGet
+  # NuGet
+  - provider: NuGet
+    api_key:
+      secure: ty/C9+zIqbXaj8BRG+aiDTMHgfdz9NMXjEVaOuQ/SjwHzhEjJpf+3QHKRwPTSceX # your encrypted token from Nuget
+    skip_symbols: false
+    artifact: UtilzaoNuGet
 on_success:
   - echo Processo finalizado com sucesso!
