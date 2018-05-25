@@ -21,9 +21,17 @@ namespace Utilzao.Tests
         {
             var slackUtil = new SlackUtil(_urlWebhook);
 
-            var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
+            try
+            {
+                var mensagem = new SlackMensagem(_nomeCanal, "Essa é uma mensagem enviada para o Slack", _nomeUsuario, "Você recebeu uma mensagem.");
 
-            Assert.IsTrue(slackUtil.Postar(mensagem));
+                Assert.IsTrue(slackUtil.Postar(mensagem));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         [TestMethod]

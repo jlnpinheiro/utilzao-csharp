@@ -148,7 +148,7 @@ namespace JNogueira.Infraestrutura.Utilzao.Comunicacao.Slack
             {
                 return _slackClient.Post(slackMessage);
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
