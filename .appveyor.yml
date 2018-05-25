@@ -12,6 +12,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 build:
+  verbosity: minimal
   project: Utilzao.sln
 before_build:
   - cmd: nuget restore Utilzao.sln
@@ -22,6 +23,9 @@ build_script:
 test:
     assemblies:
       - '**\*Utilzao.Tests.dll'
+    categories:
+      - Extension methods - Int
+      - Extension methods - String
 artifacts:
   - path: '**\*.nupkg'
     name: UtilzaoNuGet
