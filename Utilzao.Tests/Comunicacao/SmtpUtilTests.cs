@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 
@@ -11,7 +12,7 @@ namespace Utilzao.Tests
     [TestCategory("SMTP")]
     public class SmtpUtilTests
     {
-        private readonly SmtpClient _smtpGmail;
+        private readonly SmtpClient _smtp;
 
         private readonly string _emailRemetente;
 
@@ -19,30 +20,27 @@ namespace Utilzao.Tests
 
         public SmtpUtilTests()
         {
-            _smtpGmail = new SmtpClient
+            _smtp = new SmtpClient
             {
-                Host                  = "smtp.gmail.com",
-                Port                  = 587,
-                EnableSsl             = true,
+                Host                  = ConfigurationManager.AppSettings["Smtp.Host"],
+                Port                  = Convert.ToInt32(ConfigurationManager.AppSettings["Smtp.Port"]),
+                EnableSsl             = false,
                 DeliveryMethod        = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = true,
-                Credentials           = new NetworkCredential("seu_email@gmail.com", "sua_senha")
+                Credentials           = new NetworkCredential(ConfigurationManager.AppSettings["Smtp.Username"], ConfigurationManager.AppSettings["Smtp.Password"])
             };
 
-            _emailRemetente = "teste@utilzao.com";
+            _emailRemetente = ConfigurationManager.AppSettings["Smtp.Email"];
 
-            _emailDestinatarios = new[] { "email_destinatario_1@email.com" };
+            _emailDestinatarios = new[] { ConfigurationManager.AppSettings["Smtp.Email"] };
         }
         
-        /// <summary>
-        /// Para realização desse teste habilitar na conta do G-mail a opção "Turn On Access for less secure apps" (mais informações em https://stackoverflow.com/questions/32260/sending-email-in-net-through-gmail)
-        /// </summary>
         [TestMethod]
-        public void Deve_Enviar_Email_Por_Smtp_Gmail()
+        public void Deve_Enviar_Email_Por_Smtp()
         {
             try
             {
-                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste.</b>", _smtpGmail)
+                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste.</b>", _smtp)
                 {
                     NomeRemetente  = "Utilzão Teste",
                     Assunto        = "Você recebeu um e-mail teste.",
@@ -60,11 +58,11 @@ namespace Utilzao.Tests
         }
 
         [TestMethod]
-        public void Deve_Enviar_Email_Por_Smtp_Gmail_Com_Copia()
+        public void Deve_Enviar_Email_Por_Smtp_Com_Copia()
         {
             try
             {
-                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste.</b>", _smtpGmail)
+                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste.</b>", _smtp)
                 {
                     EmailsDestinatariosEmCopia = _emailDestinatarios,
                     NomeRemetente = "Utilzão Teste",
@@ -83,39 +81,27 @@ namespace Utilzao.Tests
         }
 
         [TestMethod]
-        public void Deve_Enviar_Email_Por_Smtp_Gmail_Com_Anexo()
+        public void Deve_Enviar_Email_Por_Smtp_Com_Anexo()
         {
             try
             {
-                var anexo = new Attachment("c:\\declaracao.pdf");
+                Attachment anexo;
 
-                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste com anexo.</b>", _smtpGmail)
+                using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                {
+                    using (System.IO.StreamWriter writer = new System.IO.StreamWriter(ms))
+                    {
+                        writer.Write("Olá, sou um anexo!");
+                        writer.Flush();
+                    }
+
+                    anexo = new Attachment(ms, new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Text.Plain));
+                    anexo.ContentDisposition.FileName = "AnexoEmail.txt";
+                }
+
+                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste com anexo.</b>", _smtp)
                 {
                     Anexos = new List<Attachment> { anexo },
-                    NomeRemetente = "Utilzão Teste",
-                    Assunto = "Você recebeu um e-mail teste com anexo.",
-                    MensagemEmHtml = true
-                };
-
-                email.Enviar();
-
-                Assert.IsTrue(true);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
-        }
-
-        [TestMethod]
-        public void Deve_Enviar_Email_Por_Smtp_AppConfig()
-        {
-            try
-            {
-                // ATENÇÃO: certifique-se que as informações do servidor SMTP estão corretamente informadas no arquivo App.Config 
-
-                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, " <b>Você recebeu uma mensagem teste.</b>")
-                {
                     NomeRemetente = "Utilzão Teste",
                     Assunto = "Você recebeu um e-mail teste com anexo.",
                     MensagemEmHtml = true

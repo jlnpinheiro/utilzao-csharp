@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Utilzao.Tests
 {
@@ -9,11 +10,11 @@ namespace Utilzao.Tests
     [TestCategory("Slack")]
     public class SlackTests
     {
-        private readonly string _urlWebhook = "https://hooks.slack.com/services/xyz";
+        private readonly string _urlWebhook = ConfigurationManager.AppSettings["Slack.Webhook"];
 
-        private readonly string _nomeCanal = "#nome-canal";
+        private readonly string _nomeCanal = ConfigurationManager.AppSettings["Slack.Channel"];
 
-        private readonly string _nomeUsuario = "nome-usuario-bot";
+        private readonly string _nomeUsuario = ConfigurationManager.AppSettings["Slack.Username"];
 
         [TestMethod]
         public void Deve_Enviar_Mensagem_Para_Slack()

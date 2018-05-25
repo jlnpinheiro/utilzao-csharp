@@ -1,5 +1,8 @@
 version: '1.0.{build}'
 image: Visual Studio 2017
+environment:
+  my_secret:
+    secure: oB6h1YHPdFxVwg7++llRwg==
 branches:
   only:
   - master
@@ -11,6 +14,9 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+install:
+  - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
+  - cmd: appveyor-tools\secure-file -decrypt Utilzao.Tests\AppSettings.config.enc -secret %my_secret%
 build:
   verbosity: minimal
   project: Utilzao.sln
@@ -23,11 +29,11 @@ build_script:
 test:
     assemblies:
       - '**\*Utilzao.Tests.dll'
-    categories:
-      - Extension methods - Int
-      - Extension methods - String
+#    categories:
+#      - Extension methods - Int
+#      - Extension methods - String
 artifacts:
-  - path: '**\*.nupkg'
+  - path: '**\Utilzao.*.nupkg'
     name: UtilzaoNuGet
 deploy:
   # GitHub
@@ -39,7 +45,6 @@ deploy:
       secure: S8J30uBVO6nnJrL7MZ4EfUk0wX7mwlhLpXamPGijyaC6adefhnGAKuZzABknfkqb # your encrypted token from GitHub
     draft: false
     prerelease: false
-    artifact:
     on:
       branch: master                
       appveyor_repo_tag: false
