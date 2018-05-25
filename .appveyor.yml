@@ -38,6 +38,6 @@ deploy:
     api_key:
       secure: ty/C9+zIqbXaj8BRG+aiDTMHgfdz9NMXjEVaOuQ/SjwHzhEjJpf+3QHKRwPTSceX # Appkey do Nuget encriptada em https://ci.appveyor.com/tools/encrypt
     skip_symbols: false
-      artifact: UtilzaoNuGet
+    artifact: UtilzaoNuGet
 on_success:
   - echo Processo finalizado com sucesso!
