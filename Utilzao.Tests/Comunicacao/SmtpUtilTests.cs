@@ -97,19 +97,19 @@ namespace Utilzao.Tests
 
                     anexo = new Attachment(ms, new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Text.Plain));
                     anexo.ContentDisposition.FileName = "AnexoEmail.txt";
+
+                    var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste com anexo.</b>", _smtp)
+                    {
+                        Anexos = new List<Attachment> { anexo },
+                        NomeRemetente = "Utilzão Teste",
+                        Assunto = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp_Com_Anexo",
+                        MensagemEmHtml = true
+                    };
+
+                    email.Enviar();
+
+                    Assert.IsTrue(true);
                 }
-
-                var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "<b>Você recebeu uma mensagem teste com anexo.</b>", _smtp)
-                {
-                    Anexos = new List<Attachment> { anexo },
-                    NomeRemetente = "Utilzão Teste",
-                    Assunto = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp_Com_Anexo",
-                    MensagemEmHtml = true
-                };
-
-                email.Enviar();
-
-                Assert.IsTrue(true);
             }
             catch (Exception ex)
             {
