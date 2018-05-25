@@ -3,8 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 
 namespace Utilzao.Tests
 {
@@ -85,30 +88,33 @@ namespace Utilzao.Tests
         {
             try
             {
-                Attachment anexo;
-
-                using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    using (System.IO.StreamWriter writer = new System.IO.StreamWriter(ms))
+                    byte[] contentAsBytes = Encoding.UTF8.GetBytes("Olá, sou um anexo!");
+                    memoryStream.Write(contentAsBytes, 0, contentAsBytes.Length);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    var contentType = new ContentType
                     {
-                        writer.Write("Olá, sou um anexo!");
+                        MediaType = MediaTypeNames.Text.Plain,
+                        Name = "AnexoEmail.txt"
+                    };
 
-                        anexo = new Attachment(ms, new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Text.Plain));
-                        anexo.ContentDisposition.FileName = "AnexoEmail.txt";
+                    var anexo = new Attachment(memoryStream, contentType);
 
-                        var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "Você recebeu uma mensagem teste com anexo.", _smtp)
-                        {
-                            Anexos = new List<Attachment> { anexo },
-                            NomeRemetente = "Utilzão Teste",
-                            Assunto = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp_Com_Anexo",
-                            MensagemEmHtml = true
-                        };
+                    var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "Você recebeu uma mensagem enviada pelo teste <b>Deve_Enviar_Email_Por_Smtp_Com_Anexo</b>.", _smtp)
+                    {
+                        Anexos = new List<Attachment> { anexo },
+                        NomeRemetente = "Utilzão Teste",
+                        Assunto = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp_Com_Anexo",
+                        MensagemEmHtml = true
+                    };
 
-                        email.Enviar();
+                    email.Enviar();
 
-                        Assert.IsTrue(true);
-                    }
+                    Assert.IsTrue(true);
                 }
+
             }
             catch (Exception ex)
             {
