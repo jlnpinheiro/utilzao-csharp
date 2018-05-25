@@ -1,5 +1,7 @@
 
 # Utilzão
+[![AppVayor - Build status](https://ci.appveyor.com/api/projects/status/hqdwvdowbmifop4f?svg=true)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp) [![AppVeyor - Tests](https://img.shields.io/appveyor/tests/NZSmartie/coap-net-iu0to.svg)] [![NuGet](https://img.shields.io/nuget/dt/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao) [![NuGet](https://img.shields.io/nuget/v/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao)
+
 Coleção de classes e métodos úteis em C# para manipulação de strings, datas, envio de e-mail, etc.
 
 A ideia desse projeto é agrupar várias soluções e recursos "úteis" utilizados durante o desenvolvimento. Coisas simples como aplicar uma máscara a um string, validar um CPF, remover caracteres de uma string, etc. O objetivo é fazer um componente "utilzão" agrupando todos esses recursos em uma coisa só!
