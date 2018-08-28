@@ -1,8 +1,8 @@
 ﻿using JNogueira.Infraestrutura.Utilzao;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
@@ -23,19 +23,23 @@ namespace Utilzao.Tests
 
         public SmtpUtilTests()
         {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
             _smtp = new SmtpClient
             {
-                Host                  = ConfigurationManager.AppSettings["Smtp.Host"],
-                Port                  = Convert.ToInt32(ConfigurationManager.AppSettings["Smtp.Port"]),
+                Host                  = config["Smtp:Host"],
+                Port                  = Convert.ToInt32(config["Smtp:Port"]),
                 EnableSsl             = false,
                 DeliveryMethod        = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = true,
-                Credentials           = new NetworkCredential(ConfigurationManager.AppSettings["Smtp.Username"], ConfigurationManager.AppSettings["Smtp.Password"])
+                Credentials           = new NetworkCredential(config["Smtp:UserName"], config["Smtp:Password"])
             };
 
-            _emailRemetente = ConfigurationManager.AppSettings["Smtp.Email"];
+            _emailRemetente = config["Smtp:Email"];
 
-            _emailDestinatarios = new[] { ConfigurationManager.AppSettings["Smtp.Email"] };
+            _emailDestinatarios = new[] { config["Smtp:Email"] };
         }
         
         [TestMethod]

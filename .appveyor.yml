@@ -1,42 +1,36 @@
-version: '1.0.{build}'
+version: '2.0.{build}'
 skip_non_tags: true 
 image: Visual Studio 2017
-environment:
-  my_secret:
-    secure: oB6h1YHPdFxVwg7++llRwg== # Encriptada em https://ci.appveyor.com/tools/encrypt
 branches:
   only:
   - master
-configuration: Release  
-assembly_info:
-  patch: true
-  file: '**\AssemblyInfo.*'
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}'
+configuration: Release
 install:
-  - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
-  - cmd: appveyor-tools\secure-file -decrypt Utilzao.Tests\AppSettings.config.enc -secret %my_secret%
+  - cmd: dotnet restore
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
 build:
   verbosity: minimal
   project: Utilzao.sln
-before_build:
-  - cmd: nuget restore Utilzao.sln
 build_script:
-  - cmd: msbuild Utilzao.sln /p:Configuration=Release /t:Rebuild
-  - cmd: cd Utilzao
-  - cmd: nuget pack Utilzao.csproj -Prop Configuration=Release
-test:
-    assemblies:
-      - '**\*Utilzao.Tests.dll'
+  - cmd: dotnet build
+  - cmd: dotnet pack
+  - cmd: cd Utilzao.Tests
+  - cmd: dotnet test
 artifacts:
-  - path: '**\Utilzao.1.*.nupkg'
+  - path: '**\Utilzao*.nupkg'
     name: UtilzaoNuGet
 deploy:
   # NuGet
   - provider: NuGet
     api_key:
-      secure: ty/C9+zIqbXaj8BRG+aiDTMHgfdz9NMXjEVaOuQ/SjwHzhEjJpf+3QHKRwPTSceX # Appkey do Nuget encriptada em https://ci.appveyor.com/tools/encrypt
+      secure: ty/C9+zIqbXaj8BRG+aiDTMHgfdz9NMXjEVaOuQ/SjwHzhEjJpf+3QHKRwPTSceX # your encrypted token from Nuget
     skip_symbols: false
     artifact: UtilzaoNuGet
 on_success:

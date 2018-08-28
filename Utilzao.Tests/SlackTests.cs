@@ -1,8 +1,8 @@
 ﻿using JNogueira.Infraestrutura.Utilzao.Slack;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 
 namespace Utilzao.Tests
 {
@@ -10,11 +10,22 @@ namespace Utilzao.Tests
     [TestCategory("Slack")]
     public class SlackTests
     {
-        private readonly string _urlWebhook = ConfigurationManager.AppSettings["Slack.Webhook"];
+        private readonly string _urlWebhook;
 
-        private readonly string _nomeCanal = ConfigurationManager.AppSettings["Slack.Channel"];
+        private readonly string _nomeCanal;
 
-        private readonly string _nomeUsuario = ConfigurationManager.AppSettings["Slack.Username"];
+        private readonly string _nomeUsuario;
+
+        public SlackTests()
+        {
+            var config = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+               .Build();
+
+            _urlWebhook  = config["Slack:Webhook"];
+            _nomeCanal   = config["Slack:Channel"];
+            _nomeUsuario = config["Slack:UserName"];
+        }
 
         [TestMethod]
         public void Deve_Enviar_Mensagem_Para_Slack()
