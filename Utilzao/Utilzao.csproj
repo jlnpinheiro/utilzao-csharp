@@ -57,13 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comunicacao\Email\SmtpUtil.cs" />
-    <Compile Include="Comunicacao\Slack\SlackMensagem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExtensionMethods\String\Criptografia.cs" />
     <Compile Include="ExtensionMethods\String\Formatacao.cs" />
-    <Compile Include="Comunicacao\Slack\Enums.cs" />
-    <Compile Include="Comunicacao\Slack\SlackUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

@@ -1,4 +1,4 @@
-﻿using JNogueira.Infraestrutura.Utilzao.Comunicacao.Slack;
+﻿using JNogueira.Infraestrutura.Utilzao.Slack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

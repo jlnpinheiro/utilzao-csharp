@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace JNogueira.Infraestrutura.Utilzao.Comunicacao.Slack
+namespace JNogueira.Infraestrutura.Utilzao.Slack
 {
     /// <summary>
     /// Tipo de mensagem enviada pelo Slack

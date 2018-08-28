@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 
-namespace JNogueira.Infraestrutura.Utilzao.Comunicacao.Email
+namespace JNogueira.Infraestrutura.Utilzao
 {
     /// <summary>
     /// Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP

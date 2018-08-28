@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace JNogueira.Infraestrutura.Utilzao.Comunicacao.Slack
+namespace JNogueira.Infraestrutura.Utilzao.Slack
 {
     /// <summary>
     /// Classe responsável por enviar mensagem para o webhook do Slack

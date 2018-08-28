@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.2</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Utilzao.Standard</AssemblyName>
     <RootNamespace>JNogueira.Infraestrutura.Utilzao</RootNamespace>
     <PackageId>Utilzao.Standard</PackageId>
@@ -15,5 +15,15 @@
     <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Slack.Webhooks" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\System.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>

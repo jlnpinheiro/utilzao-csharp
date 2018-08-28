@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JNogueira.Infraestrutura.Utilzao.Comunicacao.Slack
+namespace JNogueira.Infraestrutura.Utilzao.Slack
 {
     /// <summary>
     /// Representa uma mensagem enviada pelo Slack

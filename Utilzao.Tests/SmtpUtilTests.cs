@@ -1,4 +1,4 @@
-﻿using JNogueira.Infraestrutura.Utilzao.Comunicacao.Email;
+﻿using JNogueira.Infraestrutura.Utilzao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
