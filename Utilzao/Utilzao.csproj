@@ -4,9 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Utilzao.Standard</AssemblyName>
     <RootNamespace>JNogueira.Infraestrutura.Utilzao</RootNamespace>
-    <PackageId>Utilzao.Standard</PackageId>
+    <PackageId>Utilzao</PackageId>
     <Authors>Jorge Nogueira</Authors>
-    <Product>Utilzão .NET Standard 2.0</Product>
+    <Product>Utilzão</Product>
     <Description>Coleção de classes e métodos úteis em C# para manipulação de strings, datas, envio de e-mail, etc para ser utilizado com o .NET Standard 2.0</Description>
     <PackageProjectUrl>https://github.com/jlnpinheiro/utilzao-csharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jlnpinheiro/utilzao-csharp</RepositoryUrl>
