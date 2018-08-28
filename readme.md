@@ -1,6 +1,6 @@
 
 # Utilzão
-[![AppVayor - Build status](https://ci.appveyor.com/api/projects/status/hqdwvdowbmifop4f?svg=true)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp) [![AppVeyor tests](https://img.shields.io/appveyor/tests/jlnpinheiro/utilzao-csharp.svg)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp/build/tests) [![NuGet](https://img.shields.io/nuget/dt/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao) [![NuGet](https://img.shields.io/nuget/v/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao)
+[![AppVayor - Build status](https://ci.appveyor.com/api/projects/status/hqdwvdowbmifop4f?svg=true)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp)[![NuGet](https://img.shields.io/nuget/dt/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao) [![NuGet](https://img.shields.io/nuget/v/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao)
 
 Coleção de classes e métodos úteis em C# para manipulação de strings, datas, envio de e-mail, etc.
 
