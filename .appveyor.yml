@@ -9,8 +9,6 @@ branches:
   - master
 configuration: Release
 install:
-  - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
-  - cmd: appveyor-tools\secure-file -decrypt Utilzao.Tests\bin\Release\netcoreapp2.1\appsettings.json.enc -secret %my_secret%
   - cmd: dotnet restore
 dotnet_csproj:
   patch: true
@@ -25,6 +23,8 @@ build:
   project: Utilzao.sln
 build_script:
   - cmd: dotnet build
+  - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
+  - cmd: appveyor-tools\secure-file -decrypt Utilzao.Tests\bin\Release\netcoreapp2.1\appsettings.json.enc -secret %my_secret%
   - cmd: dotnet pack
   - cmd: cd Utilzao.Tests
   - cmd: dotnet test
