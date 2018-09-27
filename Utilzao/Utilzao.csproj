@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Utilzao.Standard</AssemblyName>
+    <AssemblyName>Utilzao</AssemblyName>
     <RootNamespace>JNogueira.Infraestrutura.Utilzao</RootNamespace>
     <PackageId>Utilzao</PackageId>
     <Authors>Jorge Nogueira</Authors>
