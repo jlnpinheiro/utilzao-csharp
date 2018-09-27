@@ -1,6 +1,6 @@
 
 # Utilzão
-[![AppVayor - Build status](https://ci.appveyor.com/api/projects/status/hqdwvdowbmifop4f?svg=true)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp) [![AppVeyor tests](https://img.shields.io/appveyor/tests/jlnpinheiro/utilzao-csharp.svg)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp/build/tests) [![NuGet](https://img.shields.io/nuget/dt/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao) [![NuGet](https://img.shields.io/nuget/v/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao)
+[![AppVayor - Build status](https://ci.appveyor.com/api/projects/status/hqdwvdowbmifop4f?svg=true)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp) [![NuGet](https://img.shields.io/nuget/dt/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao) [![NuGet](https://img.shields.io/nuget/v/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao)
 
 Coleção de classes e métodos úteis em C# para manipulação de strings, datas, envio de e-mail, etc.
 
@@ -8,8 +8,7 @@ A ideia desse projeto é agrupar várias soluções e recursos "úteis" utilizad
 
 A solução é dividida nos seguintes projetos:
 
-* **Utilzao.Standard**: Projeto utilizando .NET Standard 1.2. Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
-* **Utilzao**: Projeto utilizando .NET Full Framework 4.5.1
+* **Utilzao**: Projeto utilizando .NET Standard 2.0. Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
 * **Utilzao.Tests**: Projeto de testes.
 
 ## Comunicação
@@ -240,8 +239,7 @@ var chave = "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI=".Descriptografar();
 ```
 
 ## Dependências
-* **Utilzao**: .NET Full 4.5.1
-* **Utilzao.Standard**: .NET Standard 1.2+
+* **Utilzao**: .NET Standard 2.0+
 
 Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
 
@@ -251,13 +249,7 @@ Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotn
 ```
 Install-Package Utilzao
 ```
-```
-Install-Package Utilzao.Standard
-```
 ### .NET CLI
 ```
 dotnet add package Utilzao
-```
-```
-dotnet add package Utilzao.Standard
 ```
