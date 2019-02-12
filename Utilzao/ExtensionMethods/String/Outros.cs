@@ -74,5 +74,23 @@
                     return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Realiza um "Substring" mesmo que o tamanho informado seja maior que o tamanho do input
+        /// </summary>
+        /// <param name="input">Input onde será realizado o "Substring"</param>
+        /// <param name="startIndex">Index onde o substring deverá ser realizado</param>
+        /// <param name="tamanho">Quantidade de caracteres que deverá ser retornado. Caso seja maior que o tamanho do input, a quantidade máxima após o start index será retornado.</param>
+        /// <returns>Uma nova string</returns>
+        public static string SubstringSafe(this string input, int startIndex, int tamanho)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+
+            return input.Length <= startIndex
+                ? input
+                : input.Length - startIndex <= tamanho
+                    ? input.Substring(startIndex)
+                    : input.Substring(startIndex, tamanho);
+        }
     }
 }
