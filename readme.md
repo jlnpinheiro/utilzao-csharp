@@ -238,6 +238,18 @@ var chave = "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI=".Descriptografar();
 // chave == "Essa é a minha chave secreta"
 ```
 
+### Outros
+**SubstringSafe** - Ao executar o método "Substring" em uma string, caso o valor do parâmentro "length" seja maior que a quantidade de caracteres da string, uma exception "ArgumentOutOfRangeException" é disparada.
+```csharp
+var substring = "Hello World".Substring(0, 1000); // O tamanho (parâmetro length) é maior que a quantida de caracteres da string.
+\\ Uma exception "ArgumentOutOfRangeException" é disparada
+```
+O método "SubstringSafe" impede que essa exception seja disparada, pois caso o valor do parâmetro "length" seja maior que a quantidade de caracteres da string, será retornado os caracteres até o término da string. Veja o exemplo:
+```csharp
+var substring = "Hello World".SubstringSafe(0, 1000);
+\\ substring = "Hello World"
+```
+
 ## Dependências
 * **Utilzao**: .NET Standard 2.0+
 
