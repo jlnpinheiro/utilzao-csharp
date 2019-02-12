@@ -35,7 +35,7 @@ namespace JNogueira.Infraestrutura.Utilzao
         /// <typeparam name="T">Tipo do enum</typeparam>
         /// <param name="input">Valor que será convertido para um elemento do enum</param>
         /// <param name="defaultValue">Valor default retornado caso o elemento não seja encontrado no enum.</param>
-        public static T? ConverterParaEnum<T>(string input, T? defaultValue = null) where T : struct
+        public static T? ConverterParaEnum<T>(this string input, T? defaultValue = null) where T : struct
         {
             if (string.IsNullOrEmpty(input))
                 return defaultValue;
