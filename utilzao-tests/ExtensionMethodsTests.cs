@@ -134,6 +134,7 @@ namespace Utilzao.Tests
 
             Assert.IsTrue(data == null);
         }
+    }
 
     [TestClass]
     [TestCategory("ExtensionMethods-Int")]
