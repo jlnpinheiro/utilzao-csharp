@@ -1,4 +1,4 @@
-﻿using JNogueira.Infraestrutura.Utilzao;
+﻿using JNogueira.Utilzao;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

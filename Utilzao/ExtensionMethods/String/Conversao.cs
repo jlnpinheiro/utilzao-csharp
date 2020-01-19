@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JNogueira.Infraestrutura.Utilzao
+namespace JNogueira.Utilzao
 {
     public static partial class ExtensionMethods
     {

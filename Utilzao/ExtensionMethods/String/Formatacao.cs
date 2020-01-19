@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace JNogueira.Infraestrutura.Utilzao
+namespace JNogueira.Utilzao
 {
     public static partial class ExtensionMethods
     {

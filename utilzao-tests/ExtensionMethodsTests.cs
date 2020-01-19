@@ -1,4 +1,4 @@
-﻿using JNogueira.Infraestrutura.Utilzao;
+﻿using JNogueira.Utilzao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -12,7 +12,7 @@ namespace Utilzao.Tests
     }
 
     [TestClass]
-    [TestCategory("Extension methods - String")]
+    [TestCategory("ExtensionMethods-String")]
     public class ExtensionMethodsTests
     {
         [TestMethod]
@@ -137,7 +137,7 @@ namespace Utilzao.Tests
     }
 
     [TestClass]
-    [TestCategory("Extension methods - Int")]
+    [TestCategory("ExtensionMethods-Int")]
     public class ExtensionMethodsIntTests
     {
         [TestMethod]
