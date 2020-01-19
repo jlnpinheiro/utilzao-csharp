@@ -134,7 +134,6 @@ namespace Utilzao.Tests
 
             Assert.IsTrue(data == null);
         }
-    }
 
     [TestClass]
     [TestCategory("ExtensionMethods-Int")]
@@ -143,7 +142,7 @@ namespace Utilzao.Tests
         [TestMethod]
         public void Deve_Converter_Para_Um_Enum()
         {
-            var enumTeste = 1.ConverterParaEnum(EnumTeste.Valor2);
+            var enumTeste = 1.ConverterParaEnum<EnumTeste>();
 
             Assert.IsTrue(enumTeste == EnumTeste.Valor1);
         }
@@ -151,9 +150,25 @@ namespace Utilzao.Tests
         [TestMethod]
         public void Deve_Converter_Para_Um_Enum_Default()
         {
-            var enumTeste = 5.ConverterParaEnum(EnumTeste.Valor2);
+            var enumTeste = 5.ConverterParaEnum<EnumTeste>(null);
 
-            Assert.IsTrue(enumTeste == EnumTeste.Valor2);
+            Assert.IsTrue(enumTeste == null);
+        }
+
+        [TestMethod]
+        public void Deve_Realizar_Um_Substring_Com_Tamanho_Menor_Input()
+        {
+            var input = "Hello World!";
+
+            Assert.IsTrue(input.SubstringSafe(0, 5) == "Hello");
+        }
+
+        [TestMethod]
+        public void Deve_Realizar_Um_Substring_Com_Tamanho_Maior_Input()
+        {
+            var input = "Hello World!";
+
+            Assert.IsTrue(input.SubstringSafe(6, 1000) == "World!");
         }
     }
 }
