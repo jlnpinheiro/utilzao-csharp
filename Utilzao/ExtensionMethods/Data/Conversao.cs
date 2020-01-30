@@ -24,5 +24,11 @@ namespace JNogueira.Utilzao
                 ? (DateTime?)null
                 : dataConvertida;
         }
+
+        /// <summary>
+        /// Converte uma data para o horário oficil do Brasil (Brasília)
+        /// </summary>
+        /// <param name="input">Data que deverá ser convertida</param>
+        public static DateTime ConverterHorarioOficialBrasil(this DateTime input) => TimeZoneInfo.ConvertTime(input, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time"));
     }
 }

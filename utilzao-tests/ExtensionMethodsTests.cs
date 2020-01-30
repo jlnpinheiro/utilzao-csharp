@@ -134,6 +134,14 @@ namespace Utilzao.Tests
 
             Assert.IsTrue(data == null);
         }
+
+        [TestMethod]
+        public void Deve_Converter_Horario_Oficial_Brasil()
+        {
+            var data = DateTime.Now;
+            
+            Assert.IsTrue(data == data.ConverterHorarioOficialBrasil());
+        }
     }
 
     [TestClass]
