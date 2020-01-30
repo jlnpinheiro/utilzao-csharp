@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace JNogueira.Utilzao
 {
@@ -29,6 +30,11 @@ namespace JNogueira.Utilzao
         /// Converte uma data para o horário oficil do Brasil (Brasília)
         /// </summary>
         /// <param name="input">Data que deverá ser convertida</param>
-        public static DateTime ConverterHorarioOficialBrasil(this DateTime input) => TimeZoneInfo.ConvertTime(input, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time"));
+        public static DateTime ConverterHorarioOficialBrasil(this DateTime input)
+        {
+            return RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? TimeZoneInfo.ConvertTime(input, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time"))
+                : TimeZoneInfo.ConvertTime(input, TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo"));
+        }
     }
 }
