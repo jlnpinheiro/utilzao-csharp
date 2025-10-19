@@ -49,6 +49,12 @@ public class ExtensionMethodsTests
     }
 
     [Test]
+    public void Deve_Remover_Formatacao_Html()
+    {
+        Assert.That("Removeu toda formatação HTML" == "<span style=\"border: 1px solid red;\"><b>Removeu toda formatação HTML</b></span></br>".RemoverHtml());
+    }
+
+    [Test]
     public void Deve_Extrair_Numeros()
     {
         Assert.That("84552945000106" == "84.552.945/0001-06".ExtrairNumeros());

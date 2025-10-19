@@ -1,18 +1,19 @@
 
 # Utilzão
-[![AppVayor - Build status](https://ci.appveyor.com/api/projects/status/hqdwvdowbmifop4f?svg=true)](https://ci.appveyor.com/project/jlnpinheiro/utilzao-csharp) [![NuGet](https://img.shields.io/nuget/dt/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao) [![NuGet](https://img.shields.io/nuget/v/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao)
+[![NuGet](https://img.shields.io/nuget/dt/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao) [![NuGet](https://img.shields.io/nuget/v/Utilzao.svg?style=flat-square)](https://www.nuget.org/packages/Utilzao)
 
 Coleção de classes e métodos úteis em C# para manipulação de strings, datas, envio de e-mail, etc.
 
-A ideia desse projeto é agrupar várias soluções e recursos "úteis" utilizados durante o desenvolvimento. Coisas simples como aplicar uma máscara a um string, validar um CPF, remover caracteres de uma string, etc. O objetivo é fazer um componente "utilzão" agrupando todos esses recursos em uma coisa só!
+A ideia desse projeto é agrupar várias soluções e recursos "úteis" que podem ser utilizados em projetos com C#. Coisas simples como aplicar uma máscara a um string, validar um CPF, remover caracteres de uma string, etc. O objetivo é fazer um componente "utilzão" agrupando todos esses recursos úteis em um componente só!
 
 A solução é dividida nos seguintes projetos:
 
-* **utilzao**: Projeto utilizando .NET Standard 2.0. Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
+* **utilzao**: Projeto utilizando .NET Standard 2.1. Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
 * **utilzao-tests**: Projeto de testes.
 
-### SMTP
-**SmtpUtil** - Classe responsável por enviar e-mail a partir das configurações de um servidor SMTP.
+## Classes úteis
+### SmtpUtil 
+Classe que permite enviar e-mail via SMTP.
 ```csharp
 // Configuração do SmtpClient para utilização do G-mail
 var smtpGmail = new SmtpClient
@@ -25,8 +26,19 @@ var smtpGmail = new SmtpClient
     Credentials           = new NetworkCredential("seu_email@gmail.com", "sua_senha")
 };
 
-// Informando um anexo
-var anexo = new Attachment("c:\\meu_anexo.pdf");
+// Informando um anexo (por exemplo, um arquivo TXT)
+using MemoryStream memoryStream = new();
+byte[] contentAsBytes = Encoding.UTF8.GetBytes("Olá, sou um anexo!");
+memoryStream.Write(contentAsBytes, 0, contentAsBytes.Length);
+memoryStream.Seek(0, SeekOrigin.Begin);
+
+var contentType = new ContentType
+{
+    MediaType = MediaTypeNames.Text.Plain,
+    Name = "AnexoEmail.txt"
+};
+
+var anexo = new Attachment(memoryStream, contentType);
 
 var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, "<b>Você recebeu uma mensagem.</b>", smtpGmail)
 {
@@ -40,31 +52,9 @@ var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destina
 // Enviando a mensagem
 email.Enviar();
 ```
-Configuração do SMTP existente em um arquivo de configuração (Web.Config ou App.Config)
-```xml
-<configuration>
-  <system.net>
-    <mailSettings>
-      <smtp from="seu_email@seudominio.com.br">
-        <network host="smtp.seudominio.com.br" port="587" password="sua_senha" userName="username@seudominio.com.br" defaultCredentials="false" />
-      </smtp>
-    </mailSettings>
-  </system.net>
-</configuration>
-```
-```csharp
-var email = new SmtpUtil("emailRemetente@seudominio.com", new[] { "email_destinatario_1@seudominio.com" }, " <b>Você recebeu uma mensagem.</b>")
-{
-    NomeRemetente = "Utilzão",
-    Assunto = "Você recebeu um e-mail com anexo.",
-    MensagemEmHtml = true
-};
-
-email.Enviar();
-```
 
 ## Extension methods
-Gosto muito [extension methods](https://docs.microsoft.com/pt-br/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), por isso criei uma pequena coleção desses métodos que utilizo com frequência:
+Coleção de [extension methods](https://docs.microsoft.com/pt-br/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), com algumas funcionalidades e facilitades úteis que utilizo com frequência:
 
 ### Conversões
 **ConverterParaEnum** - Converte um valor em um elemento de um enum. Caso o valor não seja encontrado, o valor default é retornado.
@@ -89,6 +79,13 @@ var data = "13/05/2018 23:12:55".ConverterDataPorFormato("dd/MM/yyyy HH:mm:ss");
 
 var data = "13/05/2018".ConverterDataPorFormato("dd/MM/yyyy HH:mm:ss");
 // data == null, pois a string "13/05/2018" não possui o formato "dd/MM/yyyy HH:mm:ss".
+```
+**ConverterDataUtcHorarioOficialBrasil** - Converte uma data UTC em uma data com o horário oficial brasileiro (Brasília).
+```csharp
+var dataOficialBrasil = DateTime.UtcNow.ConverterDataUtcHorarioOficialBrasil();
+
+var data = DateTime.Now.ConverterDataUtcHorarioOficialBrasil();
+// Exception, pois DateTime.Now não é uma data UTC.
 ```
 
 ### Formatações
@@ -120,7 +117,12 @@ var aux = "84.552.945/0001-06".ExtrairNumeros();
 **RemoverAcentuacao** - Remove todos os caracteres acentuados de uma string.
 ```csharp
 var aux = "Ãóçê".RemoverAcentuacao();
-// aux == "Aoce
+// aux == "Aoce"
+```
+**RemoverHtml** - Remove todas as tags HTML de uma string
+```csharp
+var aux = "<span style=\"border: 1px solid red;\"><b>Removeu toda formatação HTML</b></span></br>".RemoverHtml();
+// aux == "Removeu toda formatação HTML"
 ```
 
 ### Validações
@@ -140,14 +142,14 @@ var aux = "123".ValidarCpf();
 ```
 
 ### Critptografia
-**Criptografar** - Criptografa uma string.
+**Criptografar** - Criptografa uma string, a partir de uma chave.
 ```csharp
-var chave = "Essa é a minha chave secreta".Criptografar();
-// chave == "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI="
+var chave = "Essa é a minha chave secreta".Criptografar(chave: "8aba82e7-c209-46fc-b2b1-4f36d32a7377");
+// chave == "T5GMYervItZXmHjsNCcd0llen1nxzTTIxB6MSdfiO8bLvOJeLark5bn4qF9Q8vMAPO09CKVR4cPyoangq2C53A=="
 ```
-**Descriptografar** - Descriptografa uma string.
+**Descriptografar** - Descriptografa uma string, a partir de uma chave.
 ```csharp
-var chave = "rmtE8KPZNPIDH4SzUj6MtFLpdM2LMegEybHdTEP5ahI=".Descriptografar();
+var chave = "T5GMYervItZXmHjsNCcd0llen1nxzTTIxB6MSdfiO8bLvOJeLark5bn4qF9Q8vMAPO09CKVR4cPyoangq2C53A==".Descriptografar(chave: "8aba82e7-c209-46fc-b2b1-4f36d32a7377");
 // chave == "Essa é a minha chave secreta"
 ```
 
@@ -164,7 +166,7 @@ var substring = "Hello World".SubstringSafe(0, 1000);
 ```
 
 ## Dependências
-* **Utilzao**: .NET Standard 2.0+
+* **Utilzao**: .NET Standard 2.1+
 
 Informações sobre versões suportadas em https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
 
