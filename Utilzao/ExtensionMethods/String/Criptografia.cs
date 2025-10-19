@@ -8,54 +8,82 @@ namespace JNogueira.Utilzao
     public static partial class ExtensionMethods
     {
         /// <summary>
-        /// Criptografa uma string
+        /// Criptografa uma string (AES-256/CBC).
         /// </summary>
-        /// <param name="texto">String a ser criptografada.</param>
-        public static string Criptografar(this string texto)
+        public static string Criptografar(this string texto, Guid chave)
         {
-            const string initVector = "tu89geji340t89u2";
-            const string chave = "2d331cca-f6c0-40c0-bb43-6e32989c2881";
+            string guid = chave.ToString();
             const int keysize = 256;
+            const int saltSize = 16;
+            const int ivSize = 16;
+            const int iterations = 150_000;
 
-            var initVectorBytes = Encoding.UTF8.GetBytes(initVector);
+            var salt = new byte[saltSize];
+            var iv = new byte[ivSize];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+                rng.GetBytes(iv);
+            }
+
+            using var kdf = new Rfc2898DeriveBytes(guid, salt, iterations, HashAlgorithmName.SHA256);
+            var keyBytes = kdf.GetBytes(keysize / 8);
+
             var plainTextBytes = Encoding.UTF8.GetBytes(texto);
-            var password = new PasswordDeriveBytes(chave, null);
-            var keyBytes = password.GetBytes(keysize / 8);
-            var symmetricKey = new RijndaelManaged { Mode = CipherMode.CBC };
-            var encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes);
-            var memoryStream = new MemoryStream();
-            var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
-            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
-            cryptoStream.FlushFinalBlock();
+
+            using var aes = new RijndaelManaged { Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7, KeySize = keysize, BlockSize = 128 };
+            using var encryptor = aes.CreateEncryptor(keyBytes, iv);
+            using var memoryStream = new MemoryStream();
+            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+            {
+                cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+                cryptoStream.FlushFinalBlock();
+            }
+
             var cipherTextBytes = memoryStream.ToArray();
-            memoryStream.Close();
-            cryptoStream.Close();
-            return Convert.ToBase64String(cipherTextBytes);
+
+            var output = new byte[salt.Length + iv.Length + cipherTextBytes.Length];
+            Buffer.BlockCopy(salt, 0, output, 0, salt.Length);
+            Buffer.BlockCopy(iv, 0, output, salt.Length, iv.Length);
+            Buffer.BlockCopy(cipherTextBytes, 0, output, salt.Length + iv.Length, cipherTextBytes.Length);
+
+            return Convert.ToBase64String(output);
         }
 
         /// <summary>
-        /// Descriptografa uma string
+        /// Descriptografa uma string (AES-256/CBC).
         /// </summary>
-        /// <param name="texto">String a ser descriptografada</param>
-        public static string Descriptografar(this string texto)
+        public static string Descriptografar(this string texto, Guid chave)
         {
-            const string initVector = "tu89geji340t89u2";
-            const string chave = "2d331cca-f6c0-40c0-bb43-6e32989c2881";
+            string guid = chave.ToString();
             const int keysize = 256;
+            const int saltSize = 16;
+            const int ivSize = 16;
+            const int iterations = 150_000;
 
-            var initVectorBytes = Encoding.ASCII.GetBytes(initVector);
-            var cipherTextBytes = Convert.FromBase64String(texto);
-            var password = new PasswordDeriveBytes(chave, null);
-            var keyBytes = password.GetBytes(keysize / 8);
-            var symmetricKey = new RijndaelManaged { Mode = CipherMode.CBC };
-            var decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
-            var memoryStream = new MemoryStream(cipherTextBytes);
-            var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-            var plainTextBytes = new byte[cipherTextBytes.Length];
-            var decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
-            memoryStream.Close();
-            cryptoStream.Close();
-            return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+            var allBytes = Convert.FromBase64String(texto);
+            if (allBytes.Length < (saltSize + ivSize + 1))
+                throw new CryptographicException("Dados inválidos.");
+
+            var salt = new byte[saltSize];
+            var iv = new byte[ivSize];
+            var cipherTextBytes = new byte[allBytes.Length - saltSize - ivSize];
+
+            Buffer.BlockCopy(allBytes, 0, salt, 0, saltSize);
+            Buffer.BlockCopy(allBytes, saltSize, iv, 0, ivSize);
+            Buffer.BlockCopy(allBytes, saltSize + ivSize, cipherTextBytes, 0, cipherTextBytes.Length);
+
+            using var kdf = new Rfc2898DeriveBytes(guid, salt, iterations, HashAlgorithmName.SHA256);
+            var keyBytes = kdf.GetBytes(keysize / 8);
+
+            using var aes = new RijndaelManaged { Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7, KeySize = keysize, BlockSize = 128 };
+            using var decryptor = aes.CreateDecryptor(keyBytes, iv);
+            using var memoryStream = new MemoryStream(cipherTextBytes);
+            using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+            using var plainMs = new MemoryStream();
+            cryptoStream.CopyTo(plainMs);
+
+            return Encoding.UTF8.GetString(plainMs.ToArray());
         }
     }
 }

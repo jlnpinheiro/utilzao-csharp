@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace JNogueira.Utilzao
 {
@@ -125,6 +127,30 @@ namespace JNogueira.Utilzao
             }
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
+        private static readonly Regex _rxScript = new Regex(@"<script\b[^>]*>.*?</script>", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex _rxStyle = new Regex(@"<style\b[^>]*>.*?</style>", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex _rxComment = new Regex(@"<!--.*?-->", RegexOptions.Singleline | RegexOptions.Compiled);
+        private static readonly Regex _rxTags = new Regex(@"<[^>]+>", RegexOptions.Compiled);
+        private static readonly Regex _rxSpace = new Regex(@"\s{2,}", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Remove todas as tags HTML e decodifica entidades.
+        /// </summary>
+        public static string RemoverHtml(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return string.Empty;
+
+            var output = _rxScript.Replace(input, string.Empty);
+            output = _rxStyle.Replace(output, string.Empty);
+            output = _rxComment.Replace(output, string.Empty);
+            output = _rxTags.Replace(output, " ");
+            output = WebUtility.HtmlDecode(output);
+            output = _rxSpace.Replace(output, " ").Trim();
+
+            return output;
         }
     }
 }

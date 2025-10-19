@@ -1,4 +1,7 @@
-﻿namespace JNogueira.Utilzao
+﻿using System;
+using System.ComponentModel;
+
+namespace JNogueira.Utilzao
 {
     public static partial class ExtensionMethods
     {

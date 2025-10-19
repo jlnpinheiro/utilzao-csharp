@@ -1,9 +1,30 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace JNogueira.Utilzao
 {
     public static partial class ExtensionMethods
     {
+        /// <summary>
+        /// Obtém a descrição de um elemento de um enum a partir do atributo DescriptionAttribute
+        /// </summary>
+        /// <param name="input">Enum sobre a qual será obtida a descrição do item</param>
+        /// <returns>Descrição do item da Enum</returns>
+        public static string ObterDescricao(this Enum input)
+        {
+            if (input == null)
+                return null;
+
+            var fieldInfo = input.GetType().GetField(input.ToString());
+
+            if (fieldInfo == null)
+                return null;
+
+            var attributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            return attributes.Length > 0 ? ((DescriptionAttribute)attributes[0]).Description : input.ToString();
+        }
+
         /// <summary>
         /// Converte um valor em um elemento de um enum. Caso o valor não seja encontrado, o valor default é retornado
         /// </summary>

@@ -27,14 +27,17 @@ namespace JNogueira.Utilzao
         }
 
         /// <summary>
-        /// Converte uma data para o horário oficil do Brasil (Brasília)
+        /// Converte uma data UTC para o horário oficial do Brasil (Brasília)
         /// </summary>
-        /// <param name="input">Data que deverá ser convertida</param>
-        public static DateTime ConverterHorarioOficialBrasil(this DateTime input)
+        /// <param name="dataUtc">Data UTC que deverá ser convertida</param>
+        public static DateTime ConverterDataUtcHorarioOficialBrasil(this DateTime dataUtc)
         {
+            if (dataUtc.Kind != DateTimeKind.Utc)
+                throw new ArgumentException("A data informada não é uma data UTC.", nameof(dataUtc));
+
             return RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                ? TimeZoneInfo.ConvertTime(input, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time"))
-                : TimeZoneInfo.ConvertTime(input, TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo"));
+                ? TimeZoneInfo.ConvertTime(dataUtc, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time"))
+                : TimeZoneInfo.ConvertTime(dataUtc, TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo"));
         }
     }
 }
