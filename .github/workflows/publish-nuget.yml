@@ -27,9 +27,9 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Write Discord webhook URL on testSettings.json file
+      - name: Create testSettings.json file
         run: |
-          echo "$TEST_SETTINGS" > utilzao-tests/bin/Release/net8.0/testSettings.json
+          echo "$TEST_SETTINGS" > utilzao-test/bin/Release/net8.0/testSettings.json
 
       - name: Run Tests
         run: dotnet test utilzao-test/utilzao-test.csproj --configuration Release --no-build --verbosity normal
