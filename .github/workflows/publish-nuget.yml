@@ -5,6 +5,9 @@ on:
     tags:
       - '*.*.*'  # Ex: 1.0.0
 
+env:
+  TEST_SETTINGS: ${{ vars.TEST_SETTINGS }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,7 +29,7 @@ jobs:
 
       - name: Write Discord webhook URL on testSettings.json file
         run: |
-          echo ${{ vars.TEST_SETTINGS }} > utilzao-tests/bin/Release/net6.0/testSettings.json
+          echo "$TEST_SETTINGS" > utilzao-tests/bin/Release/net6.0/testSettings.json
 
       - name: Run Tests
         run: dotnet test utilzao-test/utilzao-test.csproj --configuration Release --no-build --verbosity normal
