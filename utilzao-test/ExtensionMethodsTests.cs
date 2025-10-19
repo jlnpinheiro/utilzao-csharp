@@ -1,4 +1,6 @@
-﻿namespace JNogueira.Utilzao.Test;
+﻿using System.Runtime.InteropServices;
+
+namespace JNogueira.Utilzao.Test;
 
 public class ExtensionMethodsTests
 {
@@ -126,10 +128,14 @@ public class ExtensionMethodsTests
     public void Deve_Converter_Data_Horario_Oficial_Brasil()
     {
         var utcNow = DateTime.UtcNow;
-        
+
+        var dataBrasilia = TimeZoneInfo.ConvertTimeFromUtc(utcNow, RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            ? TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")
+            : TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo"));
+
         var dataOficialBrasil = utcNow.ConverterDataUtcHorarioOficialBrasil();
 
-        Assert.That(DateTime.Now.Day == dataOficialBrasil.Day && DateTime.Now.Month == dataOficialBrasil.Month && DateTime.Now.Year == dataOficialBrasil.Year && DateTime.Now.Hour == dataOficialBrasil.Hour && DateTime.Now.Minute == dataOficialBrasil.Minute);
+        Assert.That(dataBrasilia.Day == dataOficialBrasil.Day && dataBrasilia.Month == dataOficialBrasil.Month && dataBrasilia.Year == dataOficialBrasil.Year && dataBrasilia.Hour == dataOficialBrasil.Hour && dataBrasilia.Minute == dataOficialBrasil.Minute);
     }
 
     [Test]
