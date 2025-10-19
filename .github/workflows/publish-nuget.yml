@@ -35,8 +35,8 @@ jobs:
       - name: Run Tests
         run: dotnet test utilzao-test/utilzao-test.csproj --configuration Release --no-build --verbosity normal
 
-      #- name: Pack
-      #  run: dotnet pack utilzao/utilzao.csproj --configuration Release --no-build -o ./nupkg /p:PackageVersion=${{ github.ref_name }}
+      - name: Pack
+        run: dotnet pack utilzao/utilzao.csproj --configuration Release --no-build -o ./nupkg /p:PackageVersion=${{ github.ref_name }}
 
-      #- name: Publish to NuGet
-      #  run: dotnet nuget push "./nupkg/*.nupkg" --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+      - name: Publish to NuGet
+        run: dotnet nuget push "./nupkg/*.nupkg" --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
