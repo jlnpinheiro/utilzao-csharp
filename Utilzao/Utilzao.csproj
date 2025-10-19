@@ -6,13 +6,14 @@
     <PackageId>Utilzao</PackageId>
     <Authors>Jorge Nogueira</Authors>
     <Product>Utilzão</Product>
-    <Description>Coleção de classes e métodos úteis em C# para manipulação de strings, datas, envio de e-mail, etc para ser utilizado com o .NET Standard 2.0</Description>
+    <Description>Coleção de classes e métodos úteis em C# para manipulação de strings, datas, envio de e-mail, etc.</Description>
     <PackageProjectUrl>https://github.com/jlnpinheiro/utilzao-csharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jlnpinheiro/utilzao-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageTags>cpf, cnpj, conversão, extension methods, validação, máscara, formatação, smtp</PackageTags>
-    <Version>3.0.0.0</Version>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
+    <FileVersion>$(PackageVersion)</FileVersion>
+    <InformationalVersion>$(PackageVersion)</InformationalVersion>
   </PropertyGroup>
 
 </Project>
