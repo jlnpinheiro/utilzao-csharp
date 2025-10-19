@@ -30,7 +30,6 @@ jobs:
           find . -maxdepth 4 -type f \( -name "*.sln" -o -name "*.csproj" \) -print
 
       - name: Show contents of Utilzao.sln (if exists)
-        if: fileExists('Utilzao.sln') || always()
         run: |
           if [ -f "Utilzao.sln" ]; then
             echo "---- Utilzao.sln ----"
