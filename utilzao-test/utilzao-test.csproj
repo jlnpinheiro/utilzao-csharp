@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\utilzao\utilzao.csproj" />
+	  <ProjectReference Include="..\utilzao-src\utilzao.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -13,48 +13,26 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET Standart 2.1
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.0.x'
 
-      - name: Debug repo layout (print CWD and files)
-        run: |
-          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
-          pwd
-          echo "Top-level files and folders:"
-          ls -la
-          echo "List Utilzao dir if exists:"
-          ls -la Utilzao || true
-          echo "Find all .sln and .csproj files (repo root -> depth 4):"
-          find . -maxdepth 4 -type f \( -name "*.sln" -o -name "*.csproj" \) -print
+      - name: Restore dependencies
+        run: dotnet restore
 
-      - name: Show contents of Utilzao.sln (if exists)
-        run: |
-          if [ -f "Utilzao.sln" ]; then
-            echo "---- Utilzao.sln ----"
-            sed -n '1,200p' Utilzao.sln || true
-            echo "---- end ----"
-          else
-            echo "Utilzao.sln not found at repo root"
-          fi
-
-      - name: Restore dependencies (explicit project path)
-        run: dotnet restore ./Utilzao/utilzao.csproj
-
-      - name: Build (explicit project path)
-        run: dotnet build ./Utilzao/utilzao.csproj --configuration Release --no-restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
       - name: Write Discord webhook URL on testSettings.json file
         run: |
           echo ${{ vars.TEST_SETTINGS }} > utilzao-tests/bin/Release/net6.0/testSettings.json
 
-      - name: Run Tests (explicit project path)
-        run: dotnet test ./Utilzao/utilzao-test.csproj --configuration Release --no-build --verbosity normal
+      - name: Run Tests
+        run: dotnet test utilzao-test/utilzao-test.csproj --configuration Release --no-build --verbosity normal
 
-      # Pack / Publish steps are commented for now
       #- name: Pack
-      #  run: dotnet pack ./Utilzao/utilzao.csproj --configuration Release --no-build -o ./nupkg /p:PackageVersion=${{ github.ref_name }}
-      #
+      #  run: dotnet pack utilzao/utilzao.csproj --configuration Release --no-build -o ./nupkg /p:PackageVersion=${{ github.ref_name }}
+
       #- name: Publish to NuGet
       #  run: dotnet nuget push "./nupkg/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
