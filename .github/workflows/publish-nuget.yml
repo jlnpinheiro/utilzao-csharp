@@ -19,17 +19,17 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./Utilzao/utilzao.csproj
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build ./Utilzao/utilzao.csproj --configuration Release --no-restore
 
       - name: Write Discord webhook URL on testSettings.json file
         run: |
           echo ${{ vars.TEST_SETTINGS }} > utilzao-tests/bin/Release/net6.0/testSettings.json
 
       - name: Run Tests
-        run: dotnet test Utilzao/utilzao-test.csproj --configuration Release --no-build --verbosity normal
+        run: dotnet test ./Utilzao/utilzao-test.csproj --configuration Release --no-build --verbosity normal
 
       #- name: Pack
       #  run: dotnet pack utilzao/utilzao.csproj --configuration Release --no-build -o ./nupkg /p:PackageVersion=${{ github.ref_name }}
