@@ -68,7 +68,7 @@ public class SmtpUtilTests
     [Test]
     public void Deve_Enviar_Email_Por_Smtp_Com_Anexo()
     {
-        using MemoryStream memoryStream = new MemoryStream();
+        using MemoryStream memoryStream = new();
         byte[] contentAsBytes = Encoding.UTF8.GetBytes("Olá, sou um anexo!");
         memoryStream.Write(contentAsBytes, 0, contentAsBytes.Length);
         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -83,7 +83,7 @@ public class SmtpUtilTests
 
         var email = new SmtpUtil(_emailRemetente, _emailDestinatarios, "Você recebeu uma mensagem enviada pelo teste <b>Deve_Enviar_Email_Por_Smtp_Com_Anexo</b>.", _smtp)
         {
-            Anexos = new List<Attachment> { anexo },
+            Anexos = [anexo],
             NomeRemetente = "Utilzão Teste",
             Assunto = "Mensagem enviada pelo teste Deve_Enviar_Email_Por_Smtp_Com_Anexo",
             MensagemEmHtml = true

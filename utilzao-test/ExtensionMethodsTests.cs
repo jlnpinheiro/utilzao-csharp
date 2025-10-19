@@ -125,7 +125,7 @@ public class ExtensionMethodsTests
     [Test]
     public void Deve_Converter_Data_Horario_Oficial_Brasil()
     {
-        var utcNow = DateTime.Now;
+        var utcNow = DateTime.UtcNow;
         
         var dataOficialBrasil = utcNow.ConverterDataUtcHorarioOficialBrasil();
 

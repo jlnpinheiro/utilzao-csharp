@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utilzao-test", "utilzao-test\utilzao-test.csproj", "{25AED699-23FC-4C12-A06E-5715BFCA146F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utilzao", "utilzao-src\utilzao.csproj", "{4543E1FF-94FF-C014-CDF6-50CFD8095764}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utilzao", "utilzao\utilzao.csproj", "{4543E1FF-94FF-C014-CDF6-50CFD8095764}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

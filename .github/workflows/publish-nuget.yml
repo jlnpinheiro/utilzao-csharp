@@ -6,7 +6,8 @@ on:
       - '*.*.*'  # Ex: 1.0.0
 
 env:
-  TEST_SETTINGS: ${{ vars.TEST_SETTINGS }}
+  TEST_SETTINGS: ${{ vars.TEST_SETTINGS }} # Obtém das variáveis do repositório
+  NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }} # Obtém dos secrets do repositório
 
 jobs:
   build:
@@ -38,4 +39,4 @@ jobs:
       #  run: dotnet pack utilzao/utilzao.csproj --configuration Release --no-build -o ./nupkg /p:PackageVersion=${{ github.ref_name }}
 
       #- name: Publish to NuGet
-      #  run: dotnet nuget push "./nupkg/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      #  run: dotnet nuget push "./nupkg/*.nupkg" --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
