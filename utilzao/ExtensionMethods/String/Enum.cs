@@ -1,28 +1,51 @@
-﻿using System;
-using System.ComponentModel;
+﻿using JNogueira.Utilzao.Atributos;
+using System;
+using System.Reflection;
 
 namespace JNogueira.Utilzao
 {
     public static partial class ExtensionMethods
     {
         /// <summary>
-        /// Obtém a descrição de um elemento de um enum a partir do atributo DescriptionAttribute
+        /// Obtém a descrição de um elemento de um enum a partir do atributo <see cref="EnumDescricaoAttribute"/>
         /// </summary>
         /// <param name="input">Enum sobre a qual será obtida a descrição do item</param>
         /// <returns>Descrição do item da Enum</returns>
         public static string ObterDescricao(this Enum input)
         {
-            if (input == null)
+            FieldInfo fieldInfo = input?.GetType().GetField(input.ToString());
+
+            if (input == null || fieldInfo == null)
+            {
                 return null;
+            }
 
-            var fieldInfo = input.GetType().GetField(input.ToString());
+            var attributes = fieldInfo.GetCustomAttributes(typeof(EnumDescricaoAttribute), false);
 
-            if (fieldInfo == null)
-                return null;
+            return attributes.Length > 0 ? ((EnumDescricaoAttribute)attributes[0]).Descricao : input.ToString();
+        }
 
-            var attributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+        /// <summary>
+        /// Obtém o valor de um elemento de um enum a partir do atributo <see cref="EnumValorAttribute"/>
+        /// </summary>
+        /// <param name="input">Enum sobre a qual será obtido o valor do item</param>
+        /// <returns>Valor do item da Enum</returns>
+        public static TValor ObterValor<TValor>(this Enum input)
+        {
+            FieldInfo fieldInfo = input?.GetType().GetField(input.ToString());
 
-            return attributes.Length > 0 ? ((DescriptionAttribute)attributes[0]).Description : input.ToString();
+            if (input == null || fieldInfo == null)
+            {
+                return default;
+            }
+
+            var attributes = fieldInfo.GetCustomAttributes(typeof(EnumValorAttribute), false);
+
+            return attributes.Length > 0
+                ? Convert.ChangeType(((EnumValorAttribute)attributes[0]).Valor, typeof(TValor)) is TValor valor
+                    ? valor
+                    : default
+                : default;
         }
 
         /// <summary>
