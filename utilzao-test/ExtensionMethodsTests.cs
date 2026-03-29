@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using JNogueira.Utilzao.Atributos;
+using System.Runtime.InteropServices;
 
 namespace JNogueira.Utilzao.Test;
 
@@ -185,8 +186,8 @@ public class ExtensionMethodsTests
 
 public enum TimeFutebol
 {
-    [System.ComponentModel.Description("Clube de Regatas do Flamengo")]
+    [EnumDescricao("Clube de Regatas do Flamengo")]
     Flamengo,
-    [System.ComponentModel.Description("Clube de Regatas Vasco da Gama")]
+    [EnumDescricao("Clube de Regatas Vasco da Gama")]
     Vasco
 }
